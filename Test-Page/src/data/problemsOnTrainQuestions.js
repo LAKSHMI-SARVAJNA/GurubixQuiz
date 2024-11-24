@@ -1257,7 +1257,7 @@ const problemsOnTrainQuestions = [
     },
   ];
   
-  export const ProgrammingQuestions = {
+  export const ProgrammingTest = {
     "c":cProgrammingQuestions,
     "cpp":cppProgrammingQuestions,
     "python":pythonProgrammingQuestions,
