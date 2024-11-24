@@ -1,6 +1,5 @@
 import styled from "styled-components";
 
-// Main wrapper for the entire page
 export const TestPageWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -13,7 +12,6 @@ export const TestPageWrapper = styled.div`
   min-height: 90vh;
 `;
 
-// Question wrapper
 export const QuestionContainer = styled.div`
   flex: 1;
   display: flex;
@@ -51,7 +49,6 @@ export const Option = styled.button`
   }
 `;
 
-// Submit Button Styling
 export const SubmitButton = styled.button`
   display: block;
   margin: 20px auto;
@@ -70,7 +67,6 @@ export const SubmitButton = styled.button`
   }
 `;
 
-// Timeline wrapper - fixed position
 export const TimelineWrapper = styled.div`
   position: fixed;
   top: 10px;
@@ -84,7 +80,6 @@ export const TimelineWrapper = styled.div`
   z-index: 1;
 `;
 
-// Alert popup wrapper
 export const AlertWrapper = styled.div`
   position: fixed;
   top: 50%;
@@ -99,7 +94,6 @@ export const AlertWrapper = styled.div`
 `;
 
 
-// Right Carousel Styling
 export const RightCarouselWrapper = styled.div`
   position: fixed;
   top: 80px;

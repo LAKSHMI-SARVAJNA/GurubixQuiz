@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import questions from "../../data/problemsOnTrainQuestions.js"; // Importing the questions data
+import questions from "../../data/problemsOnTrainQuestions.js"; 
 import {
   TestPageWrapper,
   QuestionWrapper,
@@ -15,7 +15,7 @@ import {
 
 const TestPage = () => {
   const [selectedAnswers, setSelectedAnswers] = useState({});
-  const [timeRemaining, setTimeRemaining] = useState(600); // 10 minutes timer
+  const [timeRemaining, setTimeRemaining] = useState(600); 
   const [showAlert, setShowAlert] = useState(false);
   const [score, setScore] = useState(null);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -25,14 +25,14 @@ const TestPage = () => {
       setTimeRemaining((prevTime) => {
         if (prevTime <= 1) {
           clearInterval(timer);
-          handleSubmit(); // Automatically submit when time is up
+          handleSubmit(); 
           return 0;
         }
         return prevTime - 1;
       });
     }, 1000);
 
-    return () => clearInterval(timer); // Cleanup timer on unmount
+    return () => clearInterval(timer); 
   }, []);
 
   const handleOptionSelect = (questionIndex, option) => {
@@ -70,7 +70,18 @@ const TestPage = () => {
     setCurrentQuestionIndex(index);
   };
 
-  // If score is calculated, show the score.
+  const renderOptions = (options, questionIndex) => {
+    return Object.keys(options).map((key, idx) => (
+      <Option
+        key={key}
+        onClick={() => handleOptionSelect(questionIndex, key)}
+        isSelected={selectedAnswers[questionIndex] === key}
+      >
+        {String.fromCharCode(65 + idx)} {options[key]}
+      </Option>
+    ));
+  };
+  
   if (score !== null) {
     return (
       <div style={{ textAlign: "center", padding: "20px" }}>
@@ -82,35 +93,28 @@ const TestPage = () => {
   return (
     
     <TestPageWrapper>
-      {/* Timeline */}
       <TimelineWrapper>
         <h2>Time Left: {`${Math.floor(timeRemaining / 60)}:${timeRemaining % 60}`}</h2>
       </TimelineWrapper>
 
-      {/* Questions and options */}
       <QuestionContainer>
         {questions.map((question, index) => (
           <QuestionWrapper key={index} style={{ display: currentQuestionIndex === index ? 'block' : 'none' }}>
             <h3>Q{index + 1}. {question.question}</h3>
             <div>
-              {["optionA", "optionB", "optionC", "optionD"].map((optionKey, idx) => (
-                <Option
-                  key={optionKey}
-                  onClick={() => handleOptionSelect(index, optionKey)}
-                  isSelected={selectedAnswers[index] === optionKey}
-                >
-                  {String.fromCharCode(65 + idx)} {question[optionKey]}
-                </Option>
-              ))}
+              {renderOptions({
+                optionA: question.optionA,
+                optionB: question.optionB,
+                optionC: question.optionC,
+                optionD: question.optionD,
+              }, index)}
             </div>
           </QuestionWrapper>
         ))}
       </QuestionContainer>
 
-      {/* Submit Button */}
       <SubmitButton onClick={() => setShowAlert(true)}>Submit</SubmitButton>
 
-      {/* Confirmation Alert */}
       {showAlert && (
         <AlertWrapper>
           <p>Are you sure you want to submit the quiz?</p>
@@ -119,7 +123,6 @@ const TestPage = () => {
         </AlertWrapper>
       )}
 
-      {/* Right Carousel */}
       <RightCarouselWrapper>
         <h4>Navigate Questions</h4>
         {questions.map((_, index) => (
