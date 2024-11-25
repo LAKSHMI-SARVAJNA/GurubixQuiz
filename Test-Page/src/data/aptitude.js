@@ -918,7 +918,7 @@ const problemsOnTrainQuestions = [
     "letterAndSymbolSeries": letterAndSymbolSeriesQuestions||[]
   };
   
-  export const generalAptitudeTest = {
+ export const generalAptitudeTest = {
     Aptitude: aptitudeChapters,
     Verbal: verbalChapters,
     Logical: logicalChapters,
@@ -926,7 +926,7 @@ const problemsOnTrainQuestions = [
   
 
 
-  
+ export default  problemsOnTrainQuestions;
 
 
   
