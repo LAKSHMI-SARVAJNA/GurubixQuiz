@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import questions from "../../data/aptitude"; 
 import {
   TestPageWrapper,
@@ -33,7 +33,7 @@ const TestPage = () => {
     }, 1000);
 
     return () => clearInterval(timer); 
-  }, []);
+  });
 
   const handleOptionSelect = (questionIndex, option) => {
     setSelectedAnswers((prev) => ({
