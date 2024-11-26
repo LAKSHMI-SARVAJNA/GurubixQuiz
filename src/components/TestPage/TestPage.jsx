@@ -3,16 +3,16 @@ import questions from "../../data/aptitude";
 import RightCarousel from "../../components/rightCarousel/rightCarousel";
 import {
   TestPageWrapper,
-
   Option,
   SubmitButton,
   TimelineWrapper,
   AlertWrapper,
-  // RightCarouselWrapper,
-  // CarouselItem,
   QuestionContainer,
   OptionsContainer,
   LineSeparator,
+  ResultsWrapper,
+  ReviewText
+ 
 } from "./styledComponents";
 
 const TestPage = () => {
@@ -20,7 +20,7 @@ const TestPage = () => {
   const [timeRemaining, setTimeRemaining] = useState(600);
   const [showAlert, setShowAlert] = useState(false);
   const [score, setScore] = useState(null);
- // const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [resultsVisible, setResultsVisible] = useState(false);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -57,6 +57,7 @@ const TestPage = () => {
   const handleSubmit = () => {
     const finalScore = calculateScore();
     setScore(finalScore);
+    setResultsVisible(true);
   };
 
   const handleConfirmSubmit = () => {
@@ -68,69 +69,124 @@ const TestPage = () => {
     setShowAlert(false);
   };
 
-  // const handleQuestionNavigation = (index) => {
-  //   setCurrentQuestionIndex(index);
-  // };
+  const renderOptions = (options, questionIndex, isReview = false) => {
+    return Object.keys(options).map((key, idx) => {
+      const isCorrect = questions[questionIndex].correctAnswer === key;
+      const isUserAnswer = selectedAnswers[questionIndex] === key;
 
-  const renderOptions = (options, questionIndex) => {
-    return Object.keys(options).map((key, idx) => (
-      <Option key={key}>
-        <input
-          type="checkbox"
-          id={`option-${key}-${questionIndex}`}
-          name={`option-${questionIndex}`}
-          value={key}
-          onChange={() => handleOptionSelect(questionIndex, key)}
-          checked={selectedAnswers[questionIndex] === key}
-        />
-        <label htmlFor={`option-${key}-${questionIndex}`}>
-          {String.fromCharCode(65 + idx)}. {options[key]}
-        </label>
-      </Option>
-    ));
+      return (
+        <Option
+          key={key}
+          className={
+            isReview
+              ? isUserAnswer
+                ? isCorrect
+                  ? "correct"
+                  : "wrong"
+                : isCorrect
+                ? "correct"
+                : ""
+              : ""
+          }
+        >
+          <input
+            type="checkbox"
+            id={`option-${key}-${questionIndex}`}
+            name={`option-${questionIndex}`}
+            value={key}
+            onChange={() => !isReview && handleOptionSelect(questionIndex, key)}
+            checked={selectedAnswers[questionIndex] === key}
+            disabled={isReview}
+          />
+          <label htmlFor={`option-${key}-${questionIndex}`}>
+            {String.fromCharCode(65 + idx)}. {options[key]}
+          </label>
+        </Option>
+      );
+    });
   };
-
-  if (score !== null) {
-    return (
-      <div style={{ textAlign: "center", padding: "20px" }}>
-        <h1>Your Score: {score} / {questions.length}</h1>
-      </div>
-    );
-  }
 
   return (
     <TestPageWrapper>
-      <TimelineWrapper>
-        <h2>Time Left: {`${Math.floor(timeRemaining / 60)}:${timeRemaining % 60}`}</h2>
+       {!resultsVisible && (
+       <TimelineWrapper>
+        <h2>
+          Time Left: {`${Math.floor(timeRemaining / 60)}:${timeRemaining % 60}`}
+        </h2>
       </TimelineWrapper>
-      <div className="test-layout">
-      <QuestionContainer>
-        {questions.map((question, index) => (
-          <div key={index}>
-            
-              <h3>
-                Q{index + 1}. <span>{question.question}</span>
-              </h3>
-              <OptionsContainer>
-                {renderOptions({
-                  optionA: question.optionA,
-                  optionB: question.optionB,
-                  optionC: question.optionC,
-                  optionD: question.optionD,
-                }, index)}
-              </OptionsContainer>
-           
+         )}
+      {resultsVisible ? (
+        <div className="test-layout">
+        
+          <QuestionContainer>
+          <ResultsWrapper>
+            <h2>Marks :{score} / {questions.length} </h2>
             <LineSeparator />
-          </div>
-        ))}
-      </QuestionContainer>
-      <RightCarousel className="right-carousel" />
-     
-      </div>
-      <SubmitButton onClick={() => setShowAlert(true)}>Submit</SubmitButton>
-
-      
-      {/* <RightCarousel /> */}
+            <p>Total number of questions       :  {questions.length}</p>
+            <p>Number of answered questions    :  {Object.keys(selectedAnswers).length}</p>
+            <p>Number of unanswered questions  :  {questions.length - Object.keys(selectedAnswers).length}</p>
+          
+          </ResultsWrapper>
+        <ReviewText>
+        <p>Test Review : View answers and explanation for this test.</p> 
+        </ReviewText>
+          
+          <LineSeparator />
+            {questions.map((question, index) => (
+              <div  key={index}>
+                <h3>
+                  Q{index + 1}. {question.question}
+                </h3>
+                <OptionsContainer>
+                  {renderOptions(
+                    {
+                      optionA: question.optionA,
+                      optionB: question.optionB,
+                      optionC: question.optionC,
+                      optionD: question.optionD,
+                    },
+                    index,
+                    true
+                  )}
+                  </OptionsContainer>
+               
+                <LineSeparator />
+              </div>
+            ))}
+         </QuestionContainer>
+          <RightCarousel className="right-carousel" />
+        </div>
+      ) : (
+       
+        <div className="test-layout">
+          <QuestionContainer>
+            {questions.map((question, index) => (
+              <div key={index}>
+                <h3>
+                  Q{index + 1}. <span>{question.question}</span>
+                </h3>
+                <OptionsContainer>
+                  {renderOptions(
+                    {
+                      optionA: question.optionA,
+                      optionB: question.optionB,
+                      optionC: question.optionC,
+                      optionD: question.optionD,
+                    },
+                    index
+                  )}
+                </OptionsContainer>
+                <LineSeparator />
+              </div>
+            ))}
+          </QuestionContainer>
+          <RightCarousel className="right-carousel" />
+        </div>
+      )}
+      {!resultsVisible && (
+        
+        <SubmitButton onClick={() => setShowAlert(true)}>Submit</SubmitButton>
+      )}
       {showAlert && (
         <AlertWrapper>
           <p>Are you sure you want to submit the quiz?</p>
@@ -138,22 +194,7 @@ const TestPage = () => {
           <button onClick={handleCancelSubmit}>Cancel</button>
         </AlertWrapper>
       )}
-
-      {/* <RightCarouselWrapper>
-        <h4>Navigate Questions</h4>
-        {questions.map((_, index) => (
-          <CarouselItem
-            key={index}
-            isAnswered={selectedAnswers[index] !== undefined}
-            isActive={currentQuestionIndex === index}
-            onClick={() => handleQuestionNavigation(index)}
-          >
-            Q{index + 1}
-          </CarouselItem>
-        ))}
-      </RightCarouselWrapper> */}
     </TestPageWrapper>
-    
   );
 };
 

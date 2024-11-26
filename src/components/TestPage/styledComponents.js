@@ -8,13 +8,14 @@ export const TestPageWrapper = styled.div`
   padding: 20px;
   position: relative;
   border-radius: 15px;
-   width: 1470px;
+  width: 1470px;
   margin: 50px auto;
-  margin-left:150px;
+  margin-left: 150px;
   text-align: left;
- .test-layout {
+
+  .test-layout {
     display: flex;
-    gap:30px;
+    gap: 30px;
     justify-content: space-between;
     width: 100%;
   }
@@ -30,25 +31,24 @@ export const TestPageWrapper = styled.div`
     }
   }
 `;
+
 export const QuestionContainer = styled.div`
   flex: 3;
- box-shadow: 1px 2px 7px rgba(0,0,0, 0.2) ; 
+  box-shadow: 1px 2px 7px rgba(0, 0, 0, 0.2);
   padding: 20px;
- 
   border-radius: 15px;
   margin-right: 20px;
-margin-left: 250px;
+  margin-left: 250px;
+
   @media (max-width: 768px) {
     margin-right: 0;
   }
 `;
 
-
-
 export const OptionsContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 15px; /* Space between options */
+  gap: 15px;
 `;
 
 export const Option = styled.div`
@@ -56,25 +56,34 @@ export const Option = styled.div`
   align-items: center;
   gap: 10px;
   font-size: 16px;
-  font-weight:bold;
+  font-weight: bold;
   padding: 10px;
   border: 1px solid #ddd;
   border-radius: 4px;
-  background: #f9f9f9; 
+  background: #f9f9f9;
   cursor: pointer;
 
   &:hover {
-    background: #e3e7ed; /* Highlight on hover */
+    background: #e3e7ed;
+  }
+
+  &.correct {
+    background: #d4edda;
+    border: 1px solid #28a745;
+  }
+
+  &.wrong {
+    background: #f8d7da;
+    border: 1px solid #dc3545;
   }
 
   input[type="checkbox"] {
     height: 1.4em;
     width: 1.4em;
-    
     margin-top: 0.4em;
-    border: 1px solid rgba(0, 0, 0, .25);
+    border: 1px solid rgba(0, 0, 0, 0.25);
     border-radius: 20%;
-    border-width: .15em;
+    border-width: 0.15em;
   }
 `;
 
@@ -85,7 +94,7 @@ export const LineSeparator = styled.hr`
 `;
 
 export const SubmitButton = styled.button`
-  background: #4caf50; /* Green background */
+  background: #4caf50;
   color: white;
   padding: 15px 25px;
   border: none;
@@ -95,7 +104,7 @@ export const SubmitButton = styled.button`
   margin: 20px 0;
 
   &:hover {
-    background: #45a049; /* Darker green on hover */
+    background: #45a049;
   }
 `;
 
@@ -103,7 +112,7 @@ export const TimelineWrapper = styled.div`
   position: fixed;
   top: 30px;
   right: 20px;
-  background: green; /* Red background for timer */
+  background: green;
   color: white;
   padding: 5px 10px;
   border-radius: 5px;
@@ -133,7 +142,7 @@ export const AlertWrapper = styled.div`
     cursor: pointer;
 
     &:first-child {
-      background: #4caf50; /* Confirm button */
+      background: #4caf50;
       color: white;
 
       &:hover {
@@ -142,7 +151,7 @@ export const AlertWrapper = styled.div`
     }
 
     &:last-child {
-      background: #f44336; /* Cancel button */
+      background: #f44336;
       color: white;
 
       &:hover {
@@ -150,6 +159,34 @@ export const AlertWrapper = styled.div`
       }
     }
   }
+`;
+
+export const ResultsWrapper = styled.div`
+  padding: 20px;
+  background: rgba(241, 241, 241, .7);
+  border-radius: 8px;
+  margin-bottom: 20px;
+  text-align: left;
+font-family : Inter, arial, sans-serif ;
+  h2 {
+    margin-bottom: 10px;
+    
+  }
+
+  p {
+    font-size: 20px;
+    margin: 5px 0;
+     padding: 10px;
+  }
+`;
+
+
+export const ReviewText = styled.div`
+  color: #5eac1a;
+  font-weight: bold;
+ 
+  align-text: center;
+  font-size: 23px;
 `;
 
 export const RightCarouselWrapper = styled.div`
