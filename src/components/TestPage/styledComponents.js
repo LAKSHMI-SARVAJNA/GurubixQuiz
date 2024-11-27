@@ -7,10 +7,10 @@ justify-content: flex-end;
 align-items: flex-end;
 border-radius: 15px;
 width: 100%;
-margin: 30px;
 text-align: left;
 
 .test-layout {
+  padding:10px;
   display: flex;
   justify-content: flex-end;
   width: 75%;
@@ -29,10 +29,11 @@ text-align: left;
 
 @media (max-width: 480px) {
   width: 100%;
-.test-layout {
+  .test-layout {
   width: 100%;
+  padding: 0px;
   margin: 0;
-}
+  }
 }
 
 .right-carousel {

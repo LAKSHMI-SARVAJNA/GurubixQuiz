@@ -16,7 +16,7 @@ export const CarouselWrapper = styled.div`
     width: 100%; 
     margin: 0 auto;
     margin-top: 20px;
-    height: 600px;
+    height: 100%;
 
      width: 80%;
     border-radius: 15px;
@@ -27,8 +27,8 @@ export const CarouselWrapper = styled.div`
     width: 100%; 
     margin: 0 auto;
     margin-top: 20px;
-    height: 600px;
-    width: 400px; 
+    height: 100%;
+    width: 80%; 
     border-radius: 15px;
      box-shadow:0px 4px 12px rgba(0, 0, 0, 0.2);
    }
