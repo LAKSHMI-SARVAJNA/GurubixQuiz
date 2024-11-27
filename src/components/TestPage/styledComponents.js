@@ -153,7 +153,7 @@ export const TimelineWrapper = styled.div`
   z-index: 1;
 
   @media (max-width: 480px) {
-    font-size: 12px;
+    font-size: 8px;
     padding: 5px;
   }
 `;
