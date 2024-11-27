@@ -8,21 +8,28 @@ export const TestPageWrapper = styled.div`
   padding: 20px;
   position: relative;
   border-radius: 15px;
-  width: 1470px;
-  margin: 50px auto;
-  margin-left: 150px;
+  max-width: 1200px;
+  margin: 20px auto;
   text-align: left;
 
   .test-layout {
     display: flex;
-    gap: 30px;
+    gap: 20px;
     justify-content: space-between;
     width: 100%;
+    margin: 0;
   }
 
   @media (max-width: 768px) {
     .test-layout {
       flex-direction: column;
+       align-items: center;
+    }
+  
+
+  @media (max-width: 480px) {
+    padding: 10px;
+  }
     }
 
     .right-carousel {
@@ -37,18 +44,30 @@ export const QuestionContainer = styled.div`
   box-shadow: 1px 2px 7px rgba(0, 0, 0, 0.2);
   padding: 20px;
   border-radius: 15px;
-  margin-right: 20px;
-  margin-left: 250px;
-
+  // margin-right: 20px;
+  // margin-left: 250px;
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
   @media (max-width: 768px) {
-    margin-right: 0;
+    //margin:0px;
+    padding: 15px;
+     width: 90%;
+  }
+     @media (max-width: 480px) {
+    padding: 10px;
+    font-size: 14px;
   }
 `;
 
 export const OptionsContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 10px;//15
+
+   @media (max-width: 480px) {
+    gap: 8px;
+  }
 `;
 
 export const Option = styled.div`
@@ -78,12 +97,16 @@ export const Option = styled.div`
   }
 
   input[type="checkbox"] {
-    height: 1.4em;
-    width: 1.4em;
-    margin-top: 0.4em;
+    height: 1.2em;
+    width: 1.2em;
+    margin-top: 0.2em;
     border: 1px solid rgba(0, 0, 0, 0.25);
     border-radius: 20%;
-    border-width: 0.15em;
+    //border-width: 0.15em;
+  }
+     @media (max-width: 480px) {
+    font-size: 14px;
+    padding: 8px;
   }
 `;
 
@@ -106,6 +129,10 @@ export const SubmitButton = styled.button`
   &:hover {
     background: #45a049;
   }
+    @media (max-width: 480px) {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
 `;
 
 export const TimelineWrapper = styled.div`
@@ -119,6 +146,10 @@ export const TimelineWrapper = styled.div`
   font-size: 13px;
   font-weight: bold;
   z-index: 1;
+  @media (max-width: 480px) {
+    font-size: 12px;
+    padding: 5px;
+  }
 `;
 
 export const AlertWrapper = styled.div`
@@ -159,6 +190,12 @@ export const AlertWrapper = styled.div`
       }
     }
   }
+    @media (max-width: 480px) {
+    padding: 15px;
+    button {
+      padding: 8px 16px;
+    }
+  }
 `;
 
 export const ResultsWrapper = styled.div`
@@ -170,13 +207,24 @@ export const ResultsWrapper = styled.div`
 font-family : Inter, arial, sans-serif ;
   h2 {
     margin-bottom: 10px;
-    
+    font-size: 18px;
   }
 
   p {
     font-size: 20px;
     margin: 5px 0;
      padding: 10px;
+  }
+     @media (max-width: 480px) {
+    padding: 15px;
+
+    h2 {
+      font-size: 16px;
+    }
+
+    p {
+      font-size: 14px;
+    }
   }
 `;
 
