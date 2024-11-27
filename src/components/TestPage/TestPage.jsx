@@ -13,7 +13,7 @@ import {
   ResultsWrapper,
   ReviewText,
   WorkspaceToggleButton,
-  WorkspaceTextArea,
+  WorkspaceTextArea
  
 } from "./styledComponents";
 
@@ -269,16 +269,15 @@ const TestPage = () => {
                 <LineSeparator />
               </div>
             ))}
-              {!resultsVisible && (
-        
-        <SubmitButton onClick={handleSubmitClick}>Submit</SubmitButton>
-      )}
           </QuestionContainer>
           <RightCarousel className="right-carousel" />
         </div>
       )}
-    
-    {showUnansweredAlert && (
+      {!resultsVisible && (
+        
+        <SubmitButton onClick={handleSubmitClick}>Submit</SubmitButton>
+      )}
+      {showUnansweredAlert && (
     <AlertWrapper>
         <p>{`You have ${questions.length - Object.keys(selectedAnswers).length} unanswered questions. Do you want to continue?`}</p>
         <button onClick={handleProceedWithUnanswered}>Yes</button>
@@ -286,6 +285,7 @@ const TestPage = () => {
     </AlertWrapper>
 )}
 
+     
       {showAlert && (
         <AlertWrapper>
           <p>Are you sure you want to submit the quiz?</p>
