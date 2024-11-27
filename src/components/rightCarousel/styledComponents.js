@@ -1,40 +1,74 @@
 import styled from "styled-components";
 
 export const CarouselWrapper = styled.div`
-   width: 320px; 
-   height: 1000px;
-   margin-top:1000px;
+   width: 30%; 
+   height: 900px;
+   margin-top:200px;
    background:white;
    border: 1px solid #ddd;
    border-radius: 8px;
-   padding: 20px;
+   padding-left: 20px;
+   margin-left:25px;
+   display: flex;
+   flex-direction: column;
    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
 @media (max-width: 768px) {
-    width: 80%; 
+    width: 100%; 
     margin: 0 auto;
+    margin-top: 20px;
+    height: 100%;
+
+     width: 80%;
+    border-radius: 15px;
+     box-shadow:0px 4px 12px rgba(0, 0, 0, 0.2);
+   }
+
+  @media (max-width: 480px) {
+    width: 100%; 
+    margin: 0 auto;
+    margin-top: 20px;
+    height: 100%;
+    width: 80%; 
     border-radius: 15px;
      box-shadow:0px 4px 12px rgba(0, 0, 0, 0.2);
    }
 
 
+
   h4 {
     text-align: center;
     margin-bottom: 15px;
-    font-size: 20px; /* Increased font size */
-    font-weight: bold; /* Increased boldness */
+    padding-right:10px;
+    font-size: 20px;
+    font-weight: bold;
     color: black;
     background-color: rgba(241, 241, 241, .7);
     padding: 10px;
+    margin-right:10px;
     border-radius: 8px;
    
   }
 `;
 
+export const Categories = styled.div`
+   display: flex;
+   flex-direction : column;
+   @media (max-width: 768px) {
+    display: flex;
+    flex-direction: row;
+   flex-wrap : wrap;
+}
+   
+`
+
 export const Category = styled.div`
   margin-bottom: 20px;
+  
 
   @media (max-width: 768px) {
     margin-bottom: 15px;
+    margin: 20px;
+    margin-right: 20px;
   }
 `;
 
@@ -44,11 +78,11 @@ export const CategoryName = styled.div`
   margin-bottom: 10px;
   display: flex;
   align-items: center;
-  font-size: 23px;
+  font-size: 18px;
 
 
   @media (max-width: 768px) {
-    font-size: 16px;
+    font-size: 18px;
   }
 `;
 
@@ -58,7 +92,7 @@ export const Subcategories = styled.div`
 `;
 
 export const Subcategory = styled.div`
-  font-size: 20px; /* Increased font size */
+  font-size: 16px; 
   color: #34495e;
   margin: 8px 0;
   cursor: pointer;
@@ -66,9 +100,9 @@ export const Subcategory = styled.div`
   align-items: center;
 
   &:before {
-    content: ">"; /* Add arrow for subcategories */
+    content: ">"; 
     margin-right: 8px;
-    color:black /* Green arrow for subcategories */
+    color:black;
   }
 
   &:hover {
