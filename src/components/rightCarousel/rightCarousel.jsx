@@ -1,12 +1,12 @@
 
 
-
 import {
   CarouselWrapper,
   Category,
   CategoryName,
   Subcategories,
   Subcategory,
+  Categories
 } from "./styledComponents"; 
 
 const RightCarousel = () => {
@@ -40,6 +40,7 @@ const RightCarousel = () => {
   return (
     <CarouselWrapper>
       <h4>Quick Links</h4>
+      <Categories>
       {categories.map((category, index) => (
         <Category key={index}>
           <CategoryName>{category.name}</CategoryName>
@@ -49,7 +50,9 @@ const RightCarousel = () => {
             ))}
           </Subcategories>
         </Category>
+        
       ))}
+      </Categories>
     </CarouselWrapper>
   );
 };

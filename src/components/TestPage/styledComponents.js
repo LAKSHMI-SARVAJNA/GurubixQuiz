@@ -1,53 +1,56 @@
 import styled from "styled-components";
 
 export const TestPageWrapper = styled.div`
+display: flex;
+flex-direction: column;
+justify-content: flex-end;
+align-items: flex-end;
+border-radius: 15px;
+width: 100%;
+margin: 30px;
+text-align: left;
+
+.test-layout {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 20px;
-  position: relative;
-  border-radius: 15px;
-  max-width: 1200px;
-  margin: 20px auto;
-  text-align: left;
+  justify-content: flex-end;
+  width: 75%;
+  margin: 0;
+}
 
+@media (max-width: 768px) {
+ width: 100%;
   .test-layout {
-    display: flex;
-    gap: 20px;
-    justify-content: space-between;
-    width: 100%;
-    margin: 0;
+   width: 100%;
+  margin: 0;
+    flex-direction: column;
+    align-items: center;
   }
+}
 
-  @media (max-width: 768px) {
-    .test-layout {
-      flex-direction: column;
-       align-items: center;
-    }
-  
+@media (max-width: 480px) {
+  width: 100%;
+.test-layout {
+  width: 100%;
+  margin: 0;
+}
+}
 
-  @media (max-width: 480px) {
-    padding: 10px;
-  }
-    }
-
-    .right-carousel {
-      margin-top: 20px;
-      order: 3;
-    }
-  }
+.right-carousel {
+  margin-top: 20px;
+  order: 3;
+}
 `;
+
 
 export const QuestionContainer = styled.div`
   flex: 3;
   box-shadow: 1px 2px 7px rgba(0, 0, 0, 0.2);
   padding: 20px;
+  display:flex;
+  flex-direction:column;
+  justify-content: center;
+  align-items:center;
   border-radius: 15px;
-  // margin-right: 20px;
-  // margin-left: 250px;
-  width: 100%;
-  max-width: 1000px;
   margin: 0 auto;
   @media (max-width: 768px) {
     //margin:0px;
@@ -121,6 +124,7 @@ export const SubmitButton = styled.button`
   color: white;
   padding: 15px 25px;
   border: none;
+  width:140px;
   border-radius: 8px;
   font-size: 16px;
   cursor: pointer;
@@ -137,8 +141,8 @@ export const SubmitButton = styled.button`
 
 export const TimelineWrapper = styled.div`
   position: fixed;
-  top: 30px;
-  right: 20px;
+  bottom: 20px;
+  left: 20px;
   background: green;
   color: white;
   padding: 5px 10px;
@@ -146,11 +150,13 @@ export const TimelineWrapper = styled.div`
   font-size: 13px;
   font-weight: bold;
   z-index: 1;
+
   @media (max-width: 480px) {
     font-size: 12px;
     padding: 5px;
   }
 `;
+
 
 export const AlertWrapper = styled.div`
   position: fixed;

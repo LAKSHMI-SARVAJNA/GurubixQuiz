@@ -11,7 +11,7 @@ import {
   OptionsContainer,
   LineSeparator,
   ResultsWrapper,
-  ReviewText
+  ReviewText,
  
 } from "./styledComponents";
 
@@ -179,14 +179,15 @@ const TestPage = () => {
                 <LineSeparator />
               </div>
             ))}
+              {!resultsVisible && (
+        
+        <SubmitButton onClick={() => setShowAlert(true)}>Submit</SubmitButton>
+      )}
           </QuestionContainer>
           <RightCarousel className="right-carousel" />
         </div>
       )}
-      {!resultsVisible && (
-        
-        <SubmitButton onClick={() => setShowAlert(true)}>Submit</SubmitButton>
-      )}
+    
       {showAlert && (
         <AlertWrapper>
           <p>Are you sure you want to submit the quiz?</p>
