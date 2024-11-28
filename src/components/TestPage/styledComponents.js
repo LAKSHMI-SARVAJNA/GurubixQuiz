@@ -171,6 +171,7 @@ export const AlertWrapper = styled.div`
   text-align: center;
   z-index: 10;
   border-radius: 8px;
+  width: 20%;
 
   button {
     margin: 0 10px;
@@ -178,6 +179,7 @@ export const AlertWrapper = styled.div`
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    font-size: 16px; 
 
     &:first-child {
       background: #4caf50;
@@ -197,13 +199,23 @@ export const AlertWrapper = styled.div`
       }
     }
   }
-    @media (max-width: 480px) {
+
+  @media (max-width: 480px) {
     padding: 15px;
+    width: 55%; 
+    font-size: 14px; 
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.15);
+
     button {
-      padding: 8px 16px;
+      margin: 5px 0; 
+      padding: 10px;
+      margin: 10px;
+      width: 35%;
+      font-size: 14px;
     }
   }
 `;
+
 
 export const ResultsWrapper = styled.div`
   padding: 20px;
@@ -273,3 +285,42 @@ export const CarouselItem = styled.div`
     color: white;
   }
 `;
+
+export const WorkspaceToggleButton = styled.button`
+  //background: ;
+  color: #007bff;
+  border: none;
+  padding: 8px 8px;
+  font-size: 17px;
+  margin: 7px 0;
+  border-radius: 4px;
+  cursor: pointer;
+  
+  &:hover {
+    background: #f9f9f9;
+  }
+`;
+
+export const WorkspaceTextArea = styled.textarea`
+  width: 97%;
+  height: 80px;
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  font-family: Arial, sans-serif;
+  resize: none;
+
+  &:focus {
+    border-color: #007bff;
+    outline: none;
+  }
+`;
+
+export const Para = styled.span`
+  color: green;
+  font-size: 16px;
+  font-weight: 700;
+  font-family: Roboto;
+`

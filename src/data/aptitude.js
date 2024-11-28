@@ -6,6 +6,7 @@ const problemsOnTrainQuestions = [
       optionC: "324 metres",
       optionD: "150 metres",
       correctAnswer: "optionD",
+      explanation: "2 + 2 equals 4 because it's basic addition."
     },
     {
       question: "A 240 m long train crosses a platform in 24 seconds. If the speed of the train is 72 km/hr, what is the length of the platform?",
@@ -14,6 +15,7 @@ const problemsOnTrainQuestions = [
       optionC: "360 m",
       optionD: "400 m",
       correctAnswer: "optionB",
+      explanation: "2 + 2 equals 4 because it's basic addition."
     },
     {
       question: "Two trains running in opposite directions cross each other in 12 seconds. The speed of the first train is 60 km/hr, and the speed of the second train is 90 km/hr. If the length of the first train is 120 m, what is the length of the second train?",
@@ -22,6 +24,7 @@ const problemsOnTrainQuestions = [
       optionC: "180 m",
       optionD: "240 m",
       correctAnswer: "optionC",
+      explanation: "2 + 2 equals 4 because it's basic addition."
     },
     {
       question: "A train 150 m long passes a man, running at 6 km/hr in the direction opposite to that of the train, in 6 seconds. Find the speed of the train.",
@@ -30,6 +33,7 @@ const problemsOnTrainQuestions = [
       optionC: "66 km/hr",
       optionD: "72 km/hr",
       correctAnswer: "optionB",
+      explanation: "2 + 2 equals 4 because it's basic addition."
     },
     {
       question: "A 300 m long train crosses a platform twice its length in 45 seconds. What is the speed of the train?",
@@ -38,6 +42,7 @@ const problemsOnTrainQuestions = [
       optionC: "72 km/hr",
       optionD: "90 km/hr",
       correctAnswer: "optionC",
+      explanation: "2 + 2 equals 4 because it's basic addition."
     },
     {
       question: "A train passes a bridge in 50 seconds and a telegraph pole in 30 seconds. If the train is 400 m long, what is the length of the bridge?",

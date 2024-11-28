@@ -12,13 +12,19 @@ import {
   LineSeparator,
   ResultsWrapper,
   ReviewText,
+  WorkspaceToggleButton,
+  WorkspaceTextArea,
+  Para
  
 } from "./styledComponents";
 
 const TestPage = () => {
   const [selectedAnswers, setSelectedAnswers] = useState({});
+  const [workspaceData, setWorkspaceData] = useState({});
+  const [workspaceVisible, setWorkspaceVisible] = useState({});
   const [timeRemaining, setTimeRemaining] = useState(600);
   const [showAlert, setShowAlert] = useState(false);
+  const [showUnansweredAlert, setShowUnansweredAlert] = useState(false);
   const [score, setScore] = useState(null);
   const [resultsVisible, setResultsVisible] = useState(false);
 
@@ -37,6 +43,57 @@ const TestPage = () => {
     return () => clearInterval(timer);
   });
 
+  useEffect(() => {
+    let warningShown = false; 
+  
+    
+    const handleBeforeUnload = (event) => {
+      if (!resultsVisible) { 
+        event.preventDefault();
+        event.returnValue = ""; 
+      }
+    };
+  
+    const handleVisibilityChange = () => {
+      if (!resultsVisible && document.hidden) {
+        if (!warningShown) {
+          warningShown = true;
+          alert(
+            "Warning: Switching tabs may result in the loss of progress. Please stay on the page."
+          );
+        } else {
+        
+          setSelectedAnswers({});
+          setWorkspaceData({});
+          alert("You switched tabs again. Progress may now be lost.");
+        }
+      }
+    };
+  
+    window.addEventListener("beforeunload", handleBeforeUnload);
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+  
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
+  }, [resultsVisible]);
+  
+  const handleWorkspaceToggle = (questionIndex) => {
+    setWorkspaceVisible((prev) => ({
+      ...prev,
+      [questionIndex]: !prev[questionIndex],
+    }));
+  };
+
+  const handleWorkspaceChange = (questionIndex, text) => {
+    setWorkspaceData((prev) => ({
+      ...prev,
+      [questionIndex]: text,
+    }));
+  };
+
+
   const handleOptionSelect = (questionIndex, option) => {
     setSelectedAnswers((prev) => ({
       ...prev,
@@ -54,6 +111,17 @@ const TestPage = () => {
     return score;
   };
 
+  const handleSubmitClick = () => {
+    const unansweredCount =
+      questions.length - Object.keys(selectedAnswers).length;
+
+    if (unansweredCount > 0) {
+      setShowUnansweredAlert(true); 
+    } else {
+      setShowAlert(true); 
+    }
+  };
+
   const handleSubmit = () => {
     const finalScore = calculateScore();
     setScore(finalScore);
@@ -63,6 +131,15 @@ const TestPage = () => {
   const handleConfirmSubmit = () => {
     setShowAlert(false);
     handleSubmit();
+  };
+
+  const handleProceedWithUnanswered = () => {
+    setShowUnansweredAlert(false);
+    setShowAlert(true); 
+  };
+
+  const handleCancelUnanswered = () => {
+    setShowUnansweredAlert(false); 
   };
 
   const handleCancelSubmit = () => {
@@ -106,6 +183,36 @@ const TestPage = () => {
     });
   };
 
+  const renderQuestionReview = (question, index) => {
+    const userAnswer = selectedAnswers[index];
+    const correctAnswer = question.correctAnswer;
+    const explanation = question.explanation;
+
+    return (
+      <div key={index}>
+        <h3>
+          Q{index + 1}. {question.question}
+        </h3>
+        <OptionsContainer>
+          {renderOptions(
+            {
+              optionA: question.optionA,
+              optionB: question.optionB,
+              optionC: question.optionC,
+              optionD: question.optionD,
+            },
+            index,
+            true
+          )}
+        </OptionsContainer>
+        <p><Para>Your Answer: </Para>{userAnswer ? question[userAnswer] : "No Answer"}</p>
+        <p><Para>Correct Answer: </Para> {question[correctAnswer]}</p>
+        <p><Para>Explanation: </Para>{explanation}</p>
+        <LineSeparator />
+      </div>
+    );
+  };
+
   return (
     <TestPageWrapper>
        {!resultsVisible && (
@@ -130,7 +237,7 @@ const TestPage = () => {
         <ReviewText>
         <p>Test Review : View answers and explanation for this test.</p> 
         </ReviewText>
-          
+        {questions.map((question, index) => renderQuestionReview(question, index))}
           <LineSeparator />
             {questions.map((question, index) => (
               <div  key={index}>
@@ -176,18 +283,39 @@ const TestPage = () => {
                     index
                   )}
                 </OptionsContainer>
+                <WorkspaceToggleButton
+                  onClick={() => handleWorkspaceToggle(index)}
+                >
+                  {workspaceVisible[index] ? "#" : "[#]"}
+                </WorkspaceToggleButton>
+                {workspaceVisible[index] && (
+                  <WorkspaceTextArea
+                    value={workspaceData[index] || ""}
+                    onChange={(e) => handleWorkspaceChange(index, e.target.value)}
+                    placeholder="Type your rough work here..."
+                  />
+                )}
                 <LineSeparator />
               </div>
             ))}
               {!resultsVisible && (
         
-        <SubmitButton onClick={() => setShowAlert(true)}>Submit</SubmitButton>
+        <SubmitButton onClick={handleSubmitClick}>Submit</SubmitButton>
       )}
           </QuestionContainer>
           <RightCarousel className="right-carousel" />
         </div>
       )}
     
+      {showUnansweredAlert && (
+    <AlertWrapper>
+        <p>{`You have ${questions.length - Object.keys(selectedAnswers).length} unanswered questions. Do you want to continue?`}</p>
+        <button onClick={handleProceedWithUnanswered}>Yes</button>
+        <button onClick={handleCancelUnanswered}>Cancel</button>
+    </AlertWrapper>
+)}
+
+     
       {showAlert && (
         <AlertWrapper>
           <p>Are you sure you want to submit the quiz?</p>
