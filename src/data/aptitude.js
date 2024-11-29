@@ -901,32 +901,29 @@ const problemsOnTrainQuestions = [
     },
   ];
   
-  const verbalChapters = {
-   
-    "logicalSequence ": logicalSequenceQuestions||[],
-    "synonymsAndAntonyms" : synonymsAndAntonymsQuestions||[]
-    
-  };
-  const aptitudeChapters = {
-    "ProblemsOnTrains": problemsOnTrainQuestions||[],
-    "HeightAndDistance": heightAndDistanceQuestions||[],
-    "SimpleInterest": simpleInterestQuestions||[],
-    "TimeAndWork": timeAndWorkQuestions||[],
-  }
-  const logicalChapters = {
-    "numericaleries":numericalSeriesQuestions||[],
-    "letterAndSymbolSeries": letterAndSymbolSeriesQuestions||[]
-  };
   
  export const generalAptitudeTest = {
-    Aptitude: aptitudeChapters,
-    Verbal: verbalChapters,
-    Logical: logicalChapters,
+    Aptitude: {
+      "ProblemsOnTrains": problemsOnTrainQuestions,
+      "HeightAndDistance": heightAndDistanceQuestions,
+      "SimpleInterest": simpleInterestQuestions,
+      "TimeAndWork": timeAndWorkQuestions,
+    },
+    Verbal: {
+   
+      "logicalSequence ": logicalSequenceQuestions,
+      "synonymsAndAntonyms" : synonymsAndAntonymsQuestions
+      
+    },
+    Logical: {
+      "numericaleries":numericalSeriesQuestions,
+      "letterAndSymbolSeries": letterAndSymbolSeriesQuestions
+    }
   };
   
 
 
- export default  problemsOnTrainQuestions;
+ //export default  problemsOnTrainQuestions;
 
 
   

@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
-import questions from "../../data/aptitude";
+import  { generalAptitudeTest } from "../../data/aptitude";
 import RightCarousel from "../../components/rightCarousel/rightCarousel";
+import PropTypes from "prop-types";
 import {
   TestPageWrapper,
   Option,
@@ -17,7 +18,7 @@ import {
  
 } from "./styledComponents";
 
-const TestPage = () => {
+const TestPage = ({ selectedCategory, usedQuestions, updateUsedQuestions }) => {
   const [selectedAnswers, setSelectedAnswers] = useState({});
   const [workspaceData, setWorkspaceData] = useState({});
   const [workspaceVisible, setWorkspaceVisible] = useState({});
@@ -26,6 +27,32 @@ const TestPage = () => {
   const [showUnansweredAlert, setShowUnansweredAlert] = useState(false);
   const [score, setScore] = useState(null);
   const [resultsVisible, setResultsVisible] = useState(false);
+  const [questions, setQuestions] = useState([]);
+
+  useEffect(() => {
+    const chapters = generalAptitudeTest[selectedCategory];
+    const randomQuestions = getRandomQuestions(chapters, 20, usedQuestions);
+      setQuestions(randomQuestions);
+  }, [selectedCategory]); 
+
+  useEffect(() => {
+    if (questions.length > 0) {
+      const updatedUsedQuestions = new Set(usedQuestions); 
+      let newUsedQuestionsAdded = false;
+      
+      questions.forEach((question) => {
+        if (!usedQuestions.has(question.index)) {
+          updatedUsedQuestions.add(question.index);
+          newUsedQuestionsAdded = true;
+        }
+      });
+
+      if (newUsedQuestionsAdded) {
+        updateUsedQuestions(updatedUsedQuestions);
+      }
+    }
+  }, [questions, usedQuestions, updateUsedQuestions]); 
+  
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -47,9 +74,9 @@ const TestPage = () => {
   
     
     const handleBeforeUnload = (event) => {
-      if (!resultsVisible) { // Allow tab closing after submission
+      if (!resultsVisible) { 
         event.preventDefault();
-        event.returnValue = ""; // Necessary for modern browsers
+        event.returnValue = ""; 
       }
     };
   
@@ -69,11 +96,9 @@ const TestPage = () => {
       }
     };
   
-    // Add event listeners
     window.addEventListener("beforeunload", handleBeforeUnload);
     document.addEventListener("visibilitychange", handleVisibilityChange);
   
-    // Cleanup event listeners on unmount
     return () => {
       window.removeEventListener("beforeunload", handleBeforeUnload);
       document.removeEventListener("visibilitychange", handleVisibilityChange);
@@ -117,9 +142,9 @@ const TestPage = () => {
       questions.length - Object.keys(selectedAnswers).length;
 
     if (unansweredCount > 0) {
-      setShowUnansweredAlert(true); // Show unanswered alert
+      setShowUnansweredAlert(true); 
     } else {
-      setShowAlert(true); // Show confirmation alert
+      setShowAlert(true); 
     }
   };
 
@@ -135,17 +160,33 @@ const TestPage = () => {
   };
 
   const handleProceedWithUnanswered = () => {
-    setShowUnansweredAlert(false); // Close unanswered alert
-    setShowAlert(true); // Open confirmation alert
+    setShowUnansweredAlert(false); 
+    setShowAlert(true); 
   };
 
   const handleCancelUnanswered = () => {
-    setShowUnansweredAlert(false); // Close unanswered alert
+    setShowUnansweredAlert(false); 
   };
 
   const handleCancelSubmit = () => {
     setShowAlert(false);
   };
+
+  const getRandomQuestions = (chapters, numQuestions, usedQuestions) => {
+    const allQuestions = Object.values(chapters).flat(); 
+    console.log("All Questions:", allQuestions);
+    const uniqueQuestions = allQuestions.filter((question,index) => {
+      if (!question.id) {
+        question.id = `question-${index}`;
+      }
+      return !usedQuestions.has(question.index);
+    });
+    console.log("Unique Questions After Filtering:", uniqueQuestions);
+
+    const shuffled = uniqueQuestions.sort(() => Math.random() - 0.5);
+    return shuffled.slice(0, numQuestions);
+  };
+  
 
   const renderOptions = (options, questionIndex, isReview = false) => {
     return Object.keys(options).map((key, idx) => {
@@ -186,6 +227,8 @@ const TestPage = () => {
 
   return (
     <TestPageWrapper>
+         
+
        {!resultsVisible && (
        <TimelineWrapper>
         <h2>
@@ -235,11 +278,14 @@ const TestPage = () => {
           <RightCarousel className="right-carousel" />
         </div>
       ) : (
-       
+     
         <div className="test-layout">
+          
           <QuestionContainer>
+          
+
             {questions.map((question, index) => (
-              <div key={index}>
+              <div key={question.id || index}>
                 <h3>
                   Q{index + 1}. <span>{question.question}</span>
                 </h3>
@@ -296,5 +342,12 @@ const TestPage = () => {
     </TestPageWrapper>
   );
 };
+
+TestPage.propTypes = {
+  selectedCategory: PropTypes.string.isRequired, 
+  usedQuestions: PropTypes.instanceOf(Set).isRequired,
+  updateUsedQuestions: PropTypes.func.isRequired,
+};
+
 
 export default TestPage;

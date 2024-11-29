@@ -1091,3 +1091,4 @@ export const technicalTest = {
   NodeJs: nodeJsChapters,
   Django: djangoChapters,
 };
+export default djangoModelsQuestions
