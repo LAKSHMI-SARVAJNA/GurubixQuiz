@@ -14,7 +14,8 @@ import {
   ResultsWrapper,
   ReviewText,
   WorkspaceToggleButton,
-  WorkspaceTextArea
+  WorkspaceTextArea,
+  Para
  
 } from "./styledComponents";
 
@@ -225,6 +226,36 @@ const TestPage = ({ selectedCategory, usedQuestions, updateUsedQuestions }) => {
     });
   };
 
+  const renderQuestionReview = (question, index) => {
+    const userAnswer = selectedAnswers[index];
+    const correctAnswer = question.correctAnswer;
+    const explanation = question.explanation;
+
+    return (
+      <div key={index}>
+        <h3>
+          Q{index + 1}. {question.question}
+        </h3>
+        <OptionsContainer>
+          {renderOptions(
+            {
+              optionA: question.optionA,
+              optionB: question.optionB,
+              optionC: question.optionC,
+              optionD: question.optionD,
+            },
+            index,
+            true
+          )}
+        </OptionsContainer>
+        <p><Para>Your Answer: </Para>{userAnswer ? question[userAnswer] : "No Answer"}</p>
+        <p><Para>Correct Answer: </Para> {question[correctAnswer]}</p>
+        <p><Para>Explanation: </Para>{explanation}</p>
+        <LineSeparator />
+      </div>
+    );
+  };
+
   return (
     <TestPageWrapper>
          
@@ -251,7 +282,7 @@ const TestPage = ({ selectedCategory, usedQuestions, updateUsedQuestions }) => {
         <ReviewText>
         <p>Test Review : View answers and explanation for this test.</p> 
         </ReviewText>
-          
+        {questions.map((question, index) => renderQuestionReview(question, index))}
           <LineSeparator />
             {questions.map((question, index) => (
               <div  key={index}>
@@ -315,14 +346,15 @@ const TestPage = ({ selectedCategory, usedQuestions, updateUsedQuestions }) => {
                 <LineSeparator />
               </div>
             ))}
+              {!resultsVisible && (
+        
+        <SubmitButton onClick={handleSubmitClick}>Submit</SubmitButton>
+      )}
           </QuestionContainer>
           <RightCarousel className="right-carousel" />
         </div>
       )}
-      {!resultsVisible && (
-        
-        <SubmitButton onClick={handleSubmitClick}>Submit</SubmitButton>
-      )}
+    
       {showUnansweredAlert && (
     <AlertWrapper>
         <p>{`You have ${questions.length - Object.keys(selectedAnswers).length} unanswered questions. Do you want to continue?`}</p>
