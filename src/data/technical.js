@@ -1,7 +1,4 @@
 
-
-
-
 const sqlBasicsQuestions = [
     {
       question: "What is the SQL command used to create a database?",
@@ -173,14 +170,6 @@ const sqlBasicsQuestions = [
       correctAnswer: "optionC"
     }
   ];
-
-  const sqlChapters = {
-    "Basics": sqlBasicsQuestions || [],
-    "Joins": sqlJoinsQuestions || [],
-    "Subqueries": sqlSubqueriesQuestions || [],
-    "Normalization": sqlNormalizationQuestions || [],
-  };
-
 
 const mongoDBCRUDQuestions = [
     {
@@ -354,16 +343,6 @@ const mongoDBCRUDQuestions = [
     }
   ];
 
-
-
-  const mongoDBChapters = {
-    "CRUD": mongoDBCRUDQuestions || [],
-    "Aggregation": mongoDBAggregationQuestions || [],
-    "Indexes": mongoDBIndexesQuestions || [],
-    "DataModeling": mongoDBDataModelingQuestions || [],
-  };
-
-
   const reactJsComponentsQuestions = [
     {
       question: "What is the default state of a functional component in React?",
@@ -535,15 +514,6 @@ const mongoDBCRUDQuestions = [
       correctAnswer: "optionA"
     }
   ];
-
-
-  const reactJsChapters = {
-    "Components": reactJsComponentsQuestions || [],
-    "StateManagement": reactJsStateManagementQuestions || [],
-    "Hooks": reactJsHooksQuestions || [],
-    "Lifecycle": reactJsLifecycleQuestions || [],
-  };
-
 
 const springCoreQuestions = [
   {
@@ -1062,33 +1032,42 @@ const djangoAdminQuestions = [
 ];
 
 
-const springChapters = {
-  "Core": springCoreQuestions || [],
-  "SpringBoot": springBootQuestions || [],
-  "DataAccess": springDataAccessQuestions || [],
-  "Security": springSecurityQuestions || [],
-};
-
-const nodeJsChapters = {
-  "Basics": nodeJsBasicsQuestions || [],
-  "Express": nodeJsExpressQuestions || [],
-  "AsynchronousProgramming": nodeJsAsyncProgrammingQuestions || [],
-  "APIs": nodeJsAPIsQuestions || [],
-};
-
-const djangoChapters = {
-  "Models": djangoModelsQuestions || [],
-  "Views": djangoViewsQuestions || [],
-  "Templates": djangoTemplatesQuestions || [],
-  "Admin": djangoAdminQuestions || [],
-};
-
 export const technicalTest = {
-  SQL: sqlChapters,
-  MongoDB: mongoDBChapters,
-  ReactJs: reactJsChapters,
-  Spring: springChapters,
-  NodeJs: nodeJsChapters,
-  Django: djangoChapters,
+  SQL: {
+    "Basics": sqlBasicsQuestions || [],
+    "Joins": sqlJoinsQuestions || [],
+    "Subqueries": sqlSubqueriesQuestions || [],
+    "Normalization": sqlNormalizationQuestions || [],
+  },
+  MongoDB:   {
+    "CRUD": mongoDBCRUDQuestions || [],
+    "Aggregation": mongoDBAggregationQuestions || [],
+    "Indexes": mongoDBIndexesQuestions || [],
+    "DataModeling": mongoDBDataModelingQuestions || [],
+  },
+  ReactJs: 
+  {
+    "Components": reactJsComponentsQuestions || [],
+    "StateManagement": reactJsStateManagementQuestions || [],
+    "Hooks": reactJsHooksQuestions || [],
+    "Lifecycle": reactJsLifecycleQuestions || [],
+  },
+  Spring:  {
+    "Core": springCoreQuestions || [],
+    "SpringBoot": springBootQuestions || [],
+    "DataAccess": springDataAccessQuestions || [],
+    "Security": springSecurityQuestions || [],
+  },
+  NodeJs: {
+    "Basics": nodeJsBasicsQuestions || [],
+    "Express": nodeJsExpressQuestions || [],
+    "AsynchronousProgramming": nodeJsAsyncProgrammingQuestions || [],
+    "APIs": nodeJsAPIsQuestions || [],
+  },
+  Django: {
+    "Models": djangoModelsQuestions || [],
+    "Views": djangoViewsQuestions || [],
+    "Templates": djangoTemplatesQuestions || [],
+    "Admin": djangoAdminQuestions || [],
+  }
 };
-export default djangoModelsQuestions

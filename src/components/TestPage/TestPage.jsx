@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import  { generalAptitudeTest } from "../../data/aptitude";
+import {technicalTest} from "../../data/technical.js"
 import RightCarousel from "../../components/rightCarousel/rightCarousel";
 import PropTypes from "prop-types";
 import {
@@ -175,14 +176,14 @@ const TestPage = ({ selectedCategory, usedQuestions, updateUsedQuestions }) => {
 
   const getRandomQuestions = (chapters, numQuestions, usedQuestions) => {
     const allQuestions = Object.values(chapters).flat(); 
-    console.log("All Questions:", allQuestions);
+   // console.log("All Questions:", allQuestions);
     const uniqueQuestions = allQuestions.filter((question,index) => {
       if (!question.id) {
         question.id = `question-${index}`;
       }
       return !usedQuestions.has(question.index);
     });
-    console.log("Unique Questions After Filtering:", uniqueQuestions);
+   // console.log("Unique Questions After Filtering:", uniqueQuestions);
 
     const shuffled = uniqueQuestions.sort(() => Math.random() - 0.5);
     return shuffled.slice(0, numQuestions);
