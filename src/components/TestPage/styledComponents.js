@@ -50,7 +50,6 @@ export const QuestionContainer = styled.div`
   display:flex;
   flex-direction:column;
   justify-content: center;
-  align-items:center;
   border-radius: 15px;
   margin: 0 auto;
   @media (max-width: 768px) {
@@ -119,6 +118,12 @@ export const LineSeparator = styled.hr`
   border: none;
   border-top: 1px solid #ccc;
 `;
+
+export const ButtonContainer = styled.div`
+   display: flex;
+   justify-content: center;
+   align-items: center;
+`
 
 export const SubmitButton = styled.button`
   background: #4caf50;

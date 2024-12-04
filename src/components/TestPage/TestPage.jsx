@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
-import questions from "../../data/aptitude";
 import RightCarousel from "../../components/rightCarousel/rightCarousel";
+import PropTypes from "prop-types";
+import { generalAptitudeTest } from "../../data/aptitude";
+import { technicalTest } from "../../data/technical";
 import {
   TestPageWrapper,
   Option,
@@ -14,11 +16,12 @@ import {
   ReviewText,
   WorkspaceToggleButton,
   WorkspaceTextArea,
-  Para
+  Para,
+  ButtonContainer
  
 } from "./styledComponents";
 
-const TestPage = () => {
+const TestPage = ({selectedCategory}) => {
   const [selectedAnswers, setSelectedAnswers] = useState({});
   const [workspaceData, setWorkspaceData] = useState({});
   const [workspaceVisible, setWorkspaceVisible] = useState({});
@@ -27,6 +30,27 @@ const TestPage = () => {
   const [showUnansweredAlert, setShowUnansweredAlert] = useState(false);
   const [score, setScore] = useState(null);
   const [resultsVisible, setResultsVisible] = useState(false);
+  const [questions, setQuestions] = useState([]);
+
+  useEffect(() => {
+    let chapters;
+  
+    if (selectedCategory === "Aptitude") {
+      chapters = generalAptitudeTest;
+    } else if (selectedCategory === "SQL") {
+      chapters = technicalTest;
+    }
+    console.log("Selected category:", selectedCategory);
+    console.log("Chapters data:", chapters);
+  
+    if (chapters) {
+      const randomQuestions = getRandomQuestions(chapters, 20);
+      console.log("Randomly selected questions:", randomQuestions);
+      setQuestions(randomQuestions);
+    }
+  }, [selectedCategory]);
+  
+  
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -134,7 +158,7 @@ const TestPage = () => {
   };
 
   const handleProceedWithUnanswered = () => {
-    setShowUnansweredAlert(false);
+    setShowUnansweredAlert(false); 
     setShowAlert(true); 
   };
 
@@ -145,6 +169,28 @@ const TestPage = () => {
   const handleCancelSubmit = () => {
     setShowAlert(false);
   };
+
+  const getRandomQuestions = (chapters, numQuestions) => {
+    const allQuestions = Object.values(chapters)
+      .flatMap((category) => Object.values(category).flat())
+      .map((question, idx) => ({
+        ...question,
+        index: question.index || idx, 
+      }));
+  
+    console.log("All extracted questions:", allQuestions);
+
+  
+
+    const shuffled = allQuestions.sort(() => Math.random() - 0.5);
+    const selectedQuestions = shuffled.slice(0, numQuestions);
+  
+    console.log("Selected random questions:", selectedQuestions);
+    return selectedQuestions;
+  };
+  
+  
+  
 
   const renderOptions = (options, questionIndex, isReview = false) => {
     return Object.keys(options).map((key, idx) => {
@@ -215,6 +261,8 @@ const TestPage = () => {
 
   return (
     <TestPageWrapper>
+         
+
        {!resultsVisible && (
        <TimelineWrapper>
         <h2>
@@ -264,11 +312,14 @@ const TestPage = () => {
           <RightCarousel className="right-carousel" />
         </div>
       ) : (
-       
+     
         <div className="test-layout">
+          
           <QuestionContainer>
+          
+
             {questions.map((question, index) => (
-              <div key={index}>
+              <div key={question.id || index}>
                 <h3>
                   Q{index + 1}. <span>{question.question}</span>
                 </h3>
@@ -299,8 +350,9 @@ const TestPage = () => {
               </div>
             ))}
               {!resultsVisible && (
-        
+        <ButtonContainer>
         <SubmitButton onClick={handleSubmitClick}>Submit</SubmitButton>
+        </ButtonContainer>
       )}
           </QuestionContainer>
           <RightCarousel className="right-carousel" />
@@ -327,4 +379,9 @@ const TestPage = () => {
   );
 };
 
-export default TestPage;
+TestPage.propTypes = {
+  selectedCategory: PropTypes.string.isRequired, 
+};
+
+
+export default TestPage;  
