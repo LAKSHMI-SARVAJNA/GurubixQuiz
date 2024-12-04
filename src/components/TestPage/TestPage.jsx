@@ -1,8 +1,15 @@
 import { useState, useEffect } from "react";
+<<<<<<< HEAD
 import RightCarousel from "../../components/rightCarousel/rightCarousel";
 import PropTypes from "prop-types";
 import { generalAptitudeTest } from "../../data/aptitude";
 import { technicalTest } from "../../data/technical";
+=======
+import  { generalAptitudeTest } from "../../data/aptitude";
+import {technicalTest} from "../../data/technical.js"
+import RightCarousel from "../../components/rightCarousel/rightCarousel";
+import PropTypes from "prop-types";
+>>>>>>> 0f1ffe53e9b997b83ccd3abb58a9c76de15c12a1
 import {
   TestPageWrapper,
   Option,
@@ -21,7 +28,11 @@ import {
  
 } from "./styledComponents";
 
+<<<<<<< HEAD
 const TestPage = ({selectedCategory}) => {
+=======
+const TestPage = ({ selectedCategory, usedQuestions, updateUsedQuestions }) => {
+>>>>>>> 0f1ffe53e9b997b83ccd3abb58a9c76de15c12a1
   const [selectedAnswers, setSelectedAnswers] = useState({});
   const [workspaceData, setWorkspaceData] = useState({});
   const [workspaceVisible, setWorkspaceVisible] = useState({});
@@ -33,6 +44,7 @@ const TestPage = ({selectedCategory}) => {
   const [questions, setQuestions] = useState([]);
 
   useEffect(() => {
+<<<<<<< HEAD
     let chapters;
   
     if (selectedCategory === "Aptitude") {
@@ -50,6 +62,30 @@ const TestPage = ({selectedCategory}) => {
     }
   }, [selectedCategory]);
   
+=======
+    const chapters = generalAptitudeTest[selectedCategory];
+    const randomQuestions = getRandomQuestions(chapters, 20, usedQuestions);
+      setQuestions(randomQuestions);
+  }, [selectedCategory]); 
+
+  useEffect(() => {
+    if (questions.length > 0) {
+      const updatedUsedQuestions = new Set(usedQuestions); 
+      let newUsedQuestionsAdded = false;
+      
+      questions.forEach((question) => {
+        if (!usedQuestions.has(question.index)) {
+          updatedUsedQuestions.add(question.index);
+          newUsedQuestionsAdded = true;
+        }
+      });
+
+      if (newUsedQuestionsAdded) {
+        updateUsedQuestions(updatedUsedQuestions);
+      }
+    }
+  }, [questions, usedQuestions, updateUsedQuestions]); 
+>>>>>>> 0f1ffe53e9b997b83ccd3abb58a9c76de15c12a1
   
 
   useEffect(() => {
@@ -170,6 +206,7 @@ const TestPage = ({selectedCategory}) => {
     setShowAlert(false);
   };
 
+<<<<<<< HEAD
   const getRandomQuestions = (chapters, numQuestions) => {
     const allQuestions = Object.values(chapters)
       .flatMap((category) => Object.values(category).flat())
@@ -191,6 +228,23 @@ const TestPage = ({selectedCategory}) => {
   
   
   
+=======
+  const getRandomQuestions = (chapters, numQuestions, usedQuestions) => {
+    const allQuestions = Object.values(chapters).flat(); 
+   // console.log("All Questions:", allQuestions);
+    const uniqueQuestions = allQuestions.filter((question,index) => {
+      if (!question.id) {
+        question.id = `question-${index}`;
+      }
+      return !usedQuestions.has(question.index);
+    });
+   // console.log("Unique Questions After Filtering:", uniqueQuestions);
+
+    const shuffled = uniqueQuestions.sort(() => Math.random() - 0.5);
+    return shuffled.slice(0, numQuestions);
+  };
+  
+>>>>>>> 0f1ffe53e9b997b83ccd3abb58a9c76de15c12a1
 
   const renderOptions = (options, questionIndex, isReview = false) => {
     return Object.keys(options).map((key, idx) => {
@@ -381,7 +435,16 @@ const TestPage = ({selectedCategory}) => {
 
 TestPage.propTypes = {
   selectedCategory: PropTypes.string.isRequired, 
+<<<<<<< HEAD
 };
 
 
 export default TestPage;  
+=======
+  usedQuestions: PropTypes.instanceOf(Set).isRequired,
+  updateUsedQuestions: PropTypes.func.isRequired,
+};
+
+
+export default TestPage;
+>>>>>>> 0f1ffe53e9b997b83ccd3abb58a9c76de15c12a1
